@@ -10,7 +10,7 @@ var barraAltura,
 function inicializar(){
   bolaDiamentro = 10;
   bolaPosX = canvas.width / 2;
-  bolaPosY = 0;
+  bolaPosY = 10;
   velocidadeBola = 10;
 
   barraAltura = 15;
@@ -53,4 +53,14 @@ function keyDown(e){
 function gameLoop(){
   context.clearRect(0,0, canvas.width, canvas.height);
   context.fillRect(jogadorPosicaoX, canvas.height - barraAltura, barraLargura, barraAltura);
+  context.beginPath();
+  context.arc(bolaPosX, bolaPosY, bolaDiamentro, 0, Math.PI*2, true);
+  context.fill();
+
+  if(bolaPosY < canvas.height){
+      bolaPosY += velocidadeBola;
+  }else{
+      bolaPosY = -10;
+      bolaPosX = Math.random() * 600;
+  }
 }
