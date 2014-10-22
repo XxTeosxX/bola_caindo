@@ -5,7 +5,9 @@ var barraAltura,
     bolaDiametro,
     bolaPosX,
     bolaPosY,
-    velocidadeBola;
+    velocidadeBola,
+    pontosJogador,
+    colisao;
 
 function inicializar(){
   bolaDiamentro = 10;
@@ -16,6 +18,8 @@ function inicializar(){
   barraAltura = 15;
   barraLargura = 90;
 
+  pontosJogador = 0;
+  colisao = false;
 
   canvas = document.getElementById("canvas");
   context = canvas.getContext("2d");
@@ -57,10 +61,24 @@ function gameLoop(){
   context.arc(bolaPosX, bolaPosY, bolaDiamentro, 0, Math.PI*2, true);
   context.fill();
 
+  if((bolaPosX > jogadorPosicaoX &&
+      bolaPosX < jogadorPosicaoX + barraLargura) &&
+      bolaPosY >=canvas.height - barraAltura &&
+      !colisao){
+    pontosJogador++;
+    colisao = true;
+  }
+
+  context.font = "32pt Tahoma";
+  context.fillText(pontosJogador, canvas.width - 70, 50);
+
   if(bolaPosY < canvas.height){
       bolaPosY += velocidadeBola;
   }else{
       bolaPosY = -10;
       bolaPosX = Math.random() * 600;
+      colisao = false;
   }
+
+
 }
